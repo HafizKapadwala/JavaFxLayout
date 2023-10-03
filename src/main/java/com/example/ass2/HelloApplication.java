@@ -8,6 +8,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.LinkedList;
 
 class SimWidget {
 
@@ -22,6 +23,13 @@ class SimWidget {
     protected double myHeight;
 
     protected Rectangle r;
+
+    public void setValues(double left, double top, double width, double height){
+        this.myLeft = left;
+        this.myTop = top;
+        this.myWidth = width;
+        this.myHeight = height;
+    }
     public SimWidget(double minWidth, double maxWidth, double prefHeight){
         this.minWidth = minWidth;
         this.maxWidth = maxWidth;
@@ -30,10 +38,32 @@ class SimWidget {
         this.r = new Rectangle();
         this.r.setFill(Color.YELLOW);
         this.r.setStroke(Color.BLACK);
+        this.updateSize();
     }
 
+    public void updatePosition(){
+        this.r.setLayoutX(this.myLeft);
+        this.r.setLayoutY(this.myTop);
+    }
 
+    public void updateSize(){
+        this.r.minWidth(this.minWidth);
+        this.r.maxWidth(this.maxWidth);
+        this.r.prefHeight(this.prefHeight);
+        this.r.setWidth(this.myWidth);
+        this.r.setHeight(this.myHeight);
+    }
+}
 
+class LinearLayout{
+    protected LinkedList<SimWidget> listOfChildren;
+
+    public void addChild(SimWidget r){
+        this.listOfChildren.addLast(r);
+    }
+    public void doLayout(){
+
+    }
 }
 
 public class HelloApplication extends Application {
